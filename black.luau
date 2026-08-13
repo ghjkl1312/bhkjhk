@@ -6,8 +6,34 @@ local ui_options = {
 }
 
 do
-	local imgui = game:GetService("CoreGui"):FindFirstChild("imgui")
-	if imgui then imgui:Destroy() end
+	local function destroyImguiIn(parent)
+		if parent and parent.FindFirstChild then
+			local existing = parent:FindFirstChild("imgui")
+			if existing then
+				pcall(function() existing:Destroy() end)
+			end
+		end
+	end
+
+	destroyImguiIn(game:GetService("CoreGui"))
+
+	local Players = game:GetService("Players")
+	if Players and Players.LocalPlayer then
+		destroyImguiIn(Players.LocalPlayer:FindFirstChild("PlayerGui"))
+	end
+
+	if type(gethui) == "function" then
+		local ok, gh = pcall(gethui)
+		if ok and gh then
+			destroyImguiIn(gh)
+		end
+	end
+
+	for _,v in pairs(game:GetDescendants()) do
+		if v.Name == "imgui" and v:IsA("ScreenGui") then
+			pcall(function() v:Destroy() end)
+		end
+	end
 end
 
 local imgui = Instance.new("ScreenGui")
