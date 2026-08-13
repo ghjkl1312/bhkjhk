@@ -140,10 +140,14 @@ toggle.Parent = bar
 toggle.BackgroundColor3 = Color3.new(1, 1, 1)
 toggle.BackgroundTransparency = 1
 toggle.Position = UDim2.new(0, 5, 0, -2)
-toggle.Rotation = 90
+toggle.Rotation = 0
 toggle.Size = UDim2.new(0, 20, 0, 20)
 toggle.ZIndex = 2
 toggle.Image = "https://www.roblox.com/Thumbs/Asset.ashx?width=420&height=420&assetId=85111745202171"
+
+local toggleCorner = Instance.new("UICorner")
+toggleCorner.CornerRadius = UDim.new(0.5, 0)
+toggleCorner.Parent = toggle
 
 base.Name = "Base"
 base.Parent = bar
@@ -442,13 +446,17 @@ textButtonRoundify4px_3.ImageColor3 = Color3.new(0.160784, 0.290196, 0.478431)
 textButtonRoundify4px_3.ScaleType = Enum.ScaleType.Slice
 textButtonRoundify4px_3.SliceCenter = Rect.new(4, 4, 4, 4)
 
-toggle2.Name = "Toggle"
-toggle2.Parent = button
-toggle2.BackgroundColor3 = Color3.new(1, 1, 1)
-toggle2.BackgroundTransparency = 1
-toggle2.Position = UDim2.new(0, 5, 0, 0)
-toggle2.Size = UDim2.new(0, 20, 0, 20)
-toggle2.Image = "https://www.roblox.com/Thumbs/Asset.ashx?width=420&height=420&assetId=4731371541"
+	toggle2.Name = "Toggle"
+	toggle2.Parent = button
+	toggle2.BackgroundColor3 = Color3.new(1, 1, 1)
+	toggle2.BackgroundTransparency = 1
+	toggle2.Position = UDim2.new(0, 5, 0, 0)
+	toggle2.Size = UDim2.new(0, 20, 0, 20)
+	toggle2.Image = "https://www.roblox.com/Thumbs/Asset.ashx?width=420&height=420&assetId=4731371541"
+
+	local toggle2Corner = Instance.new("UICorner")
+	toggle2Corner.CornerRadius = UDim.new(0.5, 0)
+	toggle2Corner.Parent = toggle2
 
 objects2.Name = "Objects"
 objects2.Parent = folder
@@ -1063,7 +1071,6 @@ function library:AddWindow(title, options)
 					Resizer.Active = false
 
 					oldy = Window.AbsoluteSize.Y
-					Resize(open_close, {Rotation = 0}, options.tween_time)
 					Resize(Window, {Size = UDim2.new(0, Window.AbsoluteSize.X, 0, 26)}, options.tween_time)
 					open_close.Parent:FindFirstChild("Base").Transparency = 1
 
@@ -1076,7 +1083,6 @@ function library:AddWindow(title, options)
 
 					Resizer.Active = true
 
-					Resize(open_close, {Rotation = 90}, options.tween_time)
 					Resize(Window, {Size = UDim2.new(0, Window.AbsoluteSize.X, 0, oldy)}, options.tween_time)
 					open_close.Parent:FindFirstChild("Base").Transparency = 0
 
@@ -1993,10 +1999,8 @@ local object = prefabs:FindFirstChild("DropdownButton"):Clone()
 						local open = false
 						button.MouseButton1Click:Connect(function()
 							if open then -- Close
-								Resize(toggle, {Rotation = 0}, options.tween_time)
 								objects.Visible = false
 							else -- Open
-								Resize(toggle, {Rotation = 90}, options.tween_time)
 								objects.Visible = true
 							end
 
